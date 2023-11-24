@@ -7,14 +7,22 @@ using namespace std;
 class Solution{
 public:
     vector<long long> nthRowOfPascalTriangle(int n) {
-        vector<long long> answer(n,1);
-        for(int i = 1;i<n-1;i++){
-            for(int j = i;j>=1;j--){
-                answer[j] += answer[j-1];
-                answer[j] %= 1000000007;
-            }
+        if(n == 1){
+            return {1};
         }
-        return answer;
+        if(n == 2){
+            return {1,1};
+        }
+        
+        vector<long long> prev = nthRowOfPascalTriangle(n-1);
+        
+        vector<long long> ans(n);
+        ans[0] = ans[n-1] = 1;
+        for(int i = 1;i<n-1;i++){
+            ans[i] = prev[i-1]+prev[i];
+            ans[i] %= 1000000007;
+        }
+        return ans;
     }
 };
 
@@ -42,4 +50,4 @@ int main() {
     return 0;
 }
 
-// } Driver Code Ends
+// } Driver Code Endshttps://upload.wikimedia.org/wikipedia/commons/0/0d/PascalTriangleAnimated2.gifhttps://upload.wikimedia.org/wikipedia/commons/0/0d/PascalTriangleAnimated2.gif
